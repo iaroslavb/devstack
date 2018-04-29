@@ -1,0 +1,26 @@
+---
+- name: download devstack repo
+  git:
+    repo: 'https://git.openstack.org/openstack-dev/devstack'
+    dest: /home/stack/devstack/
+    force: yes
+
+- name: add devstack config
+  copy:
+    src: local.conf
+    dest: /home/stack/devstack/local.conf
+    owner: stack
+    group: admin
+    mode: 0644
+
+- name: chown devstack source code
+  file:
+    path: /home/stack/devstack/
+    owner: stack
+    group: admin
+    recurse: yes
+
+- name: run devstack install script
+  command: /home/stack/devstack/stack.sh
+  become: yes
+  become_user: stack
