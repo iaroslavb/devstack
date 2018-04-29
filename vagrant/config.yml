@@ -2,7 +2,7 @@
 devstack_1:
   name:     "devstack_1"
   cpus:     6
-  memory:   4096
+  memory:   6200
   gui:      false
   box:      "ubuntu/xenial64"
   ip:       192.168.88.210
