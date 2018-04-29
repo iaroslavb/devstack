@@ -2,3 +2,29 @@
 - name: install htop
   apt: name=htop state=present
 
+- name: install git
+  apt: name=git state=present
+
+- name: Create stack user
+  user:
+    name="stack"
+    home="/home/stack"
+    shell="/bin/bash"
+    append="true"
+    group="admin"
+    comment="devstack"
+
+- name: Set up authorized_key
+  authorized_key:
+    key="{{lookup('file', '~/.ssh/id_rsa.pub')}}"
+    user="stack"
+    manage_dir=no
+
+- name: allow sudo without password for ansible user
+  copy:
+    src: stack
+    dest: /etc/sudoers.d/stack
+    owner: root
+    group: root
+    mode: 0644
+
